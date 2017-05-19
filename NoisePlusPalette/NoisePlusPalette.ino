@@ -7,7 +7,7 @@
 #define COLOR_ORDER RGB
 
 #define NUM_STRIPS 8
-#define NUM_LEDS_PER_STRIP 50
+#define NUM_LEDS_PER_STRIP 120
 #define NUM_LEDS (NUM_STRIPS * NUM_LEDS_PER_STRIP)
 #define MAX_DIMENSION ((kMatrixWidth>kMatrixHeight) ? kMatrixWidth : kMatrixHeight)
 
@@ -15,6 +15,25 @@
 const uint8_t kMatrixWidth  = NUM_LEDS_PER_STRIP;
 const uint8_t kMatrixHeight = NUM_STRIPS;
 const bool    kMatrixSerpentineLayout = false;
+
+// Set up palettes for later use
+DEFINE_GRADIENT_PALETTE( pal_1 ) {
+  0,   0,   0,   0,   //black
+  50,  85,  0,   171, //Purple
+  100, 0,   0,   0,   //black
+  130, 85,  0,   171, //Purple
+  160, 171, 0,   85,  //Pink
+  190, 255, 255, 255, //white
+  220, 171, 0,   85,  //Pink
+  255, 85,  0,   171  //Purple
+ }; 
+
+DEFINE_GRADIENT_PALETTE( pal_2 ) {
+  0,   0,   0,   0,   //black
+  128, 215, 171,   0,   //yellow
+  255, 0,   0,   0    //black
+ }; 
+
 
 
 // This example combines two features of FastLED to produce a remarkable range of
@@ -211,10 +230,10 @@ void ChangePaletteAndSettingsPeriodically()
   }
 
   // For testing
-//  SetupCustomPalette();             
-//  speed = 10; 
-//  scale = 50; 
-//  colorLoop = 1;
+  currentPalette = pal_2;
+  speed = 35; 
+  scale = 20; 
+  colorLoop = 1;
 }
 
 // This function generates a random palette that's a gradient
@@ -259,23 +278,6 @@ void SetupPurpleAndGreenPalette()
     purple, purple, black,  black,
     green,  green,  black,  black,
     purple, purple, black,  black );
-}
-
-
-// This function sets up a palette of purple and green stripes.
-void SetupCustomPalette()
-{
-  CRGB color1  = CHSV( HUE_GREEN, 255, 255);
-  CRGB color2  = CHSV( HUE_AQUA, 255, 255);
-  CRGB color3  = CHSV( HUE_BLUE, 255, 255);
-  CRGB color4  = CHSV( HUE_PURPLE, 255, 255);
-  CRGB black  = CRGB::Black;
-  
-  currentPalette = CRGBPalette16( 
-    color1, color1, black,  black,
-    color2, color2, black,  black,
-    color3, color3, black,  black,
-    color4, color4, black,  black );
 }
 
 
